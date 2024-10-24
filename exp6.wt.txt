@@ -1,0 +1,43 @@
+6)write a servlet that ranks how many times the page has been 
+visited
+
+VisitCounterServlet.java: 
+ 
+import java.io.IOException; 
+import javax.servlet.ServletException; 
+import javax.servlet.annotation.WebServlet; 
+import javax.servlet.http.HttpServlet; 
+import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletResponse; 
+import javax.servlet.ServletContext; 
+import java.io.PrintWriter; 
+@WebServlet("/VisitCounterServlet") 
+public class VisitCounterServlet extends HttpServlet { 
+    private static final long serialVersionUID = 1L; 
+    @Override
+public void init() throws ServletException { 
+        // Initialize the visit count when the servlet is first loaded 
+        ServletContext context = getServletContext(); 
+        context.setAttribute("visitCount", 0); 
+    } 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws 
+ServletException, IOException { 
+        // Get the ServletContext 
+        ServletContext context = getServletContext(); 
+        // Retrieve the visit count from the context 
+        Integer visitCount = (Integer) context.getAttribute("visitCount"); 
+        // Increment the visit count 
+        visitCount++; 
+        // Store the updated visit count back into the context 
+        context.setAttribute("visitCount", visitCount); 
+        // Set the response content type 
+        response.setContentType("text/html"); 
+        // Generate the response 
+        PrintWriter out = response.getWriter(); 
+        out.println("<html><body>"); 
+        out.println("<h2>Page Visit Counter</h2>"); 
+        out.println("<p>This page has been visited <strong>" + visitCount + "</strong> 
+times.</p>"); 
+        out.println("</body></html>"); 
+    } 
+}

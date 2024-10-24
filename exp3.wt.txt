@@ -1,0 +1,56 @@
+3)Validating form data using HTML code
+
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Form Validation Example</title> 
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS --> 
+    <script> 
+        function validateForm(event) { 
+            event.preventDefault(); // Prevent form submission 
+            const name = document.getElementById("name").value; 
+            const email = document.getElementById("email").value; 
+            const errorMessage = document.getElementById("error-message"); 
+            errorMessage.textContent = ""; // Clear previous error messages 
+ 
+            let isValid = true;
+ // Name validation 
+            if (name.trim() === "") { 
+                isValid = false; 
+                errorMessage.textContent += "Name is required.\n"; 
+            } 
+ 
+            // Email validation 
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+            if (email.trim() === "") { 
+                isValid = false; 
+                errorMessage.textContent += "Email is required.\n"; 
+            } else if (!emailPattern.test(email)) { 
+                isValid = false; 
+                errorMessage.textContent += "Invalid email format.\n"; 
+            } 
+ 
+            // If valid, submit the form 
+            if (isValid) { 
+                alert("Form submitted successfully!"); 
+                // Here you would typically handle the form submission (e.g., send data to server) 
+            } 
+        } 
+    </script> 
+</head> 
+<body> 
+    <h1>Contact Form</h1> 
+    <form id="contact-form" onsubmit="validateForm(event)"> 
+        <label for="name">Name:</label> 
+        <input type="text" id="name" name="name" placeholder="Enter your name"> 
+ 
+        <label for="email">Email:</label> 
+        <input type="email" id="email" name="email" placeholder="Enter your email"> 
+ 
+        <input type="submit" value="Submit"> 
+    </form> 
+    <pre id="error-message" class="error"></pre> 
+</body> 
+</html>

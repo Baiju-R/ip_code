@@ -1,0 +1,64 @@
+5)JSP page that takes 2 numbers as input and perform basic 
+arithmetic operations
+
+arithmetic.jsp: 
+ 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF
+8"%> 
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Arithmetic Operations</title> 
+</head> 
+<body> 
+    <h1>Enter Two Numbers</h1>
+ <form action="result.jsp" method="POST"> 
+        <label for="number1">Number 1:</label> 
+        <input type="number" id="number1" name="number1" required><br><br> 
+        <label for="number2">Number 2:</label> 
+        <input type="number" id="number2" name="number2" required><br><br> 
+        <input type="submit" value="Calculate"> 
+    </form> 
+</body> 
+</html> 
+ 
+result.jsp: 
+ 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF
+8"%> 
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Arithmetic Results</title> 
+</head> 
+<body> 
+    <h1>Arithmetic Operations Results</h1> 
+    <% 
+        // Retrieving form data 
+        String num1 = request.getParameter("number1"); 
+        String num2 = request.getParameter("number2"); 
+        // Converting the string values to numbers 
+        double number1 = Double.parseDouble(num1); 
+        double number2 = Double.parseDouble(num2); 
+        // Performing arithmetic operations 
+        double sum = number1 + number2; 
+        double difference = number1 - number2; 
+        double product = number1 * number2; 
+        double quotient = 0; 
+        if (number2 != 0) { 
+            quotient = number1 / number2; 
+        } 
+    %> 
+    <p>Number 1: <%= number1 %></p> 
+    <p>Number 2: <%= number2 %></p> 
+    <h2>Results:</h2> 
+    <p>Addition: <%= sum %></p> 
+    <p>Subtraction: <%= difference %></p> 
+    <p>Multiplication: <%= product %></p> 
+    <% if (number2 != 0) { %> 
+        <p>Division: <%= quotient %></p> 
+    <% } else { %> 
+  <p>Division: Cannot divide by zero</p> 
+    <% } %> 
+</body> 
+</html>
